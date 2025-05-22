@@ -1,3 +1,5 @@
+import { PublicClientApplication } from "@azure/msal-browser";
+
 export const msalConfig = {
     auth: {
       clientId: "dc506a56-1e30-42ce-a4ac-a316f2a6e336", // from Entra ID app registration
@@ -10,7 +12,4 @@ export const msalConfig = {
     },
   };
   
-  export const loginRequest = {
-    scopes: ["openid", "profile", "email"], // Add API scope here if needed
-  };
-  
+export const msalInstance = new PublicClientApplication(msalConfig);
