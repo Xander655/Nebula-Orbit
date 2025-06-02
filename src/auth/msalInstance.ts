@@ -11,7 +11,7 @@ export const msalInstance = new PublicClientApplication({
   auth: {
     clientId: ENTRA_CLIENT_ID,
     authority: ENTRA_AUTHORITY,
-    redirectUri: redirectUri: window.location.origin + import.meta.env.BASE_URL,
+    redirectUri: window.location.origin + import.meta.env.BASE_URL,
   },
   cache: {
     cacheLocation: 'localStorage',
