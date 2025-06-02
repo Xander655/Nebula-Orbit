@@ -1,14 +1,6 @@
 // types/router-context.ts
-import type { QueryClient } from '@tanstack/react-query'
+import type { IMsalContext } from "@azure/msal-react"
 
 export interface RouterContext {
-  auth: {
-    isAuthenticated: boolean
-    user?: {
-      name: string
-      username: string
-      roles?: string[]
-    }
-  }
-  queryClient: QueryClient
+  auth: IMsalContext
 }

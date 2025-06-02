@@ -11,35 +11,31 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as OnboardingImport } from './routes/onboarding'
-import { Route as EmployeesImport } from './routes/employees'
-import { Route as AdminRouteImport } from './routes/admin/route'
+import { Route as UnauthorizedImport } from './routes/unauthorized'
+import { Route as ProvisioningImport } from './routes/provisioning'
 import { Route as IndexImport } from './routes/index'
+import { Route as DirectoryIndexImport } from './routes/directory/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
-import { Route as AdminTimeoffImport } from './routes/admin/timeoff'
-import { Route as AdminProvisioningImport } from './routes/admin/provisioning'
-import { Route as AdminLogsImport } from './routes/admin/logs'
-import { Route as AdminEmployeesIndexImport } from './routes/admin/employees/index'
+import { Route as AdminTimeoffIndexImport } from './routes/admin/timeoff/index'
+import { Route as AdminLogsIndexImport } from './routes/admin/logs/index'
+import { Route as AdminActiveDirectoryIndexImport } from './routes/admin/active-directory/index'
 import { Route as AdminEmployeesNewImport } from './routes/admin/employees/new'
 import { Route as AdminEmployeesEmployeeGuidImport } from './routes/admin/employees/$employeeGuid'
+import { Route as AdminActiveDirectoryUsersImport } from './routes/admin/active-directory/users'
+import { Route as AdminActiveDirectoryOrganizationalUnitsImport } from './routes/admin/active-directory/organizational-units'
+import { Route as AdminActiveDirectoryGroupsImport } from './routes/admin/active-directory/groups'
 
 // Create/Update Routes
 
-const OnboardingRoute = OnboardingImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
+const UnauthorizedRoute = UnauthorizedImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
   getParentRoute: () => rootRoute,
 } as any)
 
-const EmployeesRoute = EmployeesImport.update({
-  id: '/employees',
-  path: '/employees',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminRouteRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const ProvisioningRoute = ProvisioningImport.update({
+  id: '/provisioning',
+  path: '/provisioning',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -49,47 +45,68 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DirectoryIndexRoute = DirectoryIndexImport.update({
+  id: '/directory/',
+  path: '/directory/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AdminIndexRoute = AdminIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminRouteRoute,
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const AdminTimeoffRoute = AdminTimeoffImport.update({
-  id: '/timeoff',
-  path: '/timeoff',
-  getParentRoute: () => AdminRouteRoute,
+const AdminTimeoffIndexRoute = AdminTimeoffIndexImport.update({
+  id: '/admin/timeoff/',
+  path: '/admin/timeoff/',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const AdminProvisioningRoute = AdminProvisioningImport.update({
-  id: '/provisioning',
-  path: '/provisioning',
-  getParentRoute: () => AdminRouteRoute,
+const AdminLogsIndexRoute = AdminLogsIndexImport.update({
+  id: '/admin/logs/',
+  path: '/admin/logs/',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const AdminLogsRoute = AdminLogsImport.update({
-  id: '/logs',
-  path: '/logs',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-
-const AdminEmployeesIndexRoute = AdminEmployeesIndexImport.update({
-  id: '/employees/',
-  path: '/employees/',
-  getParentRoute: () => AdminRouteRoute,
+const AdminActiveDirectoryIndexRoute = AdminActiveDirectoryIndexImport.update({
+  id: '/admin/active-directory/',
+  path: '/admin/active-directory/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AdminEmployeesNewRoute = AdminEmployeesNewImport.update({
-  id: '/employees/new',
-  path: '/employees/new',
-  getParentRoute: () => AdminRouteRoute,
+  id: '/admin/employees/new',
+  path: '/admin/employees/new',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AdminEmployeesEmployeeGuidRoute = AdminEmployeesEmployeeGuidImport.update(
   {
-    id: '/employees/$employeeGuid',
-    path: '/employees/$employeeGuid',
-    getParentRoute: () => AdminRouteRoute,
+    id: '/admin/employees/$employeeGuid',
+    path: '/admin/employees/$employeeGuid',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const AdminActiveDirectoryUsersRoute = AdminActiveDirectoryUsersImport.update({
+  id: '/admin/active-directory/users',
+  path: '/admin/active-directory/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminActiveDirectoryOrganizationalUnitsRoute =
+  AdminActiveDirectoryOrganizationalUnitsImport.update({
+    id: '/admin/active-directory/organizational-units',
+    path: '/admin/active-directory/organizational-units',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const AdminActiveDirectoryGroupsRoute = AdminActiveDirectoryGroupsImport.update(
+  {
+    id: '/admin/active-directory/groups',
+    path: '/admin/active-directory/groups',
+    getParentRoute: () => rootRoute,
   } as any,
 )
 
@@ -104,201 +121,224 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/employees': {
-      id: '/employees'
-      path: '/employees'
-      fullPath: '/employees'
-      preLoaderRoute: typeof EmployeesImport
-      parentRoute: typeof rootRoute
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/logs': {
-      id: '/admin/logs'
-      path: '/logs'
-      fullPath: '/admin/logs'
-      preLoaderRoute: typeof AdminLogsImport
-      parentRoute: typeof AdminRouteImport
-    }
-    '/admin/provisioning': {
-      id: '/admin/provisioning'
+    '/provisioning': {
+      id: '/provisioning'
       path: '/provisioning'
-      fullPath: '/admin/provisioning'
-      preLoaderRoute: typeof AdminProvisioningImport
-      parentRoute: typeof AdminRouteImport
+      fullPath: '/provisioning'
+      preLoaderRoute: typeof ProvisioningImport
+      parentRoute: typeof rootRoute
     }
-    '/admin/timeoff': {
-      id: '/admin/timeoff'
-      path: '/timeoff'
-      fullPath: '/admin/timeoff'
-      preLoaderRoute: typeof AdminTimeoffImport
-      parentRoute: typeof AdminRouteImport
+    '/unauthorized': {
+      id: '/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof UnauthorizedImport
+      parentRoute: typeof rootRoute
     }
     '/admin/': {
       id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
       preLoaderRoute: typeof AdminIndexImport
-      parentRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/directory/': {
+      id: '/directory/'
+      path: '/directory'
+      fullPath: '/directory'
+      preLoaderRoute: typeof DirectoryIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/active-directory/groups': {
+      id: '/admin/active-directory/groups'
+      path: '/admin/active-directory/groups'
+      fullPath: '/admin/active-directory/groups'
+      preLoaderRoute: typeof AdminActiveDirectoryGroupsImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/active-directory/organizational-units': {
+      id: '/admin/active-directory/organizational-units'
+      path: '/admin/active-directory/organizational-units'
+      fullPath: '/admin/active-directory/organizational-units'
+      preLoaderRoute: typeof AdminActiveDirectoryOrganizationalUnitsImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/active-directory/users': {
+      id: '/admin/active-directory/users'
+      path: '/admin/active-directory/users'
+      fullPath: '/admin/active-directory/users'
+      preLoaderRoute: typeof AdminActiveDirectoryUsersImport
+      parentRoute: typeof rootRoute
     }
     '/admin/employees/$employeeGuid': {
       id: '/admin/employees/$employeeGuid'
-      path: '/employees/$employeeGuid'
+      path: '/admin/employees/$employeeGuid'
       fullPath: '/admin/employees/$employeeGuid'
       preLoaderRoute: typeof AdminEmployeesEmployeeGuidImport
-      parentRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRoute
     }
     '/admin/employees/new': {
       id: '/admin/employees/new'
-      path: '/employees/new'
+      path: '/admin/employees/new'
       fullPath: '/admin/employees/new'
       preLoaderRoute: typeof AdminEmployeesNewImport
-      parentRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRoute
     }
-    '/admin/employees/': {
-      id: '/admin/employees/'
-      path: '/employees'
-      fullPath: '/admin/employees'
-      preLoaderRoute: typeof AdminEmployeesIndexImport
-      parentRoute: typeof AdminRouteImport
+    '/admin/active-directory/': {
+      id: '/admin/active-directory/'
+      path: '/admin/active-directory'
+      fullPath: '/admin/active-directory'
+      preLoaderRoute: typeof AdminActiveDirectoryIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/logs/': {
+      id: '/admin/logs/'
+      path: '/admin/logs'
+      fullPath: '/admin/logs'
+      preLoaderRoute: typeof AdminLogsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/timeoff/': {
+      id: '/admin/timeoff/'
+      path: '/admin/timeoff'
+      fullPath: '/admin/timeoff'
+      preLoaderRoute: typeof AdminTimeoffIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface AdminRouteRouteChildren {
-  AdminLogsRoute: typeof AdminLogsRoute
-  AdminProvisioningRoute: typeof AdminProvisioningRoute
-  AdminTimeoffRoute: typeof AdminTimeoffRoute
-  AdminIndexRoute: typeof AdminIndexRoute
-  AdminEmployeesEmployeeGuidRoute: typeof AdminEmployeesEmployeeGuidRoute
-  AdminEmployeesNewRoute: typeof AdminEmployeesNewRoute
-  AdminEmployeesIndexRoute: typeof AdminEmployeesIndexRoute
-}
-
-const AdminRouteRouteChildren: AdminRouteRouteChildren = {
-  AdminLogsRoute: AdminLogsRoute,
-  AdminProvisioningRoute: AdminProvisioningRoute,
-  AdminTimeoffRoute: AdminTimeoffRoute,
-  AdminIndexRoute: AdminIndexRoute,
-  AdminEmployeesEmployeeGuidRoute: AdminEmployeesEmployeeGuidRoute,
-  AdminEmployeesNewRoute: AdminEmployeesNewRoute,
-  AdminEmployeesIndexRoute: AdminEmployeesIndexRoute,
-}
-
-const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
-  AdminRouteRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/employees': typeof EmployeesRoute
-  '/onboarding': typeof OnboardingRoute
-  '/admin/logs': typeof AdminLogsRoute
-  '/admin/provisioning': typeof AdminProvisioningRoute
-  '/admin/timeoff': typeof AdminTimeoffRoute
-  '/admin/': typeof AdminIndexRoute
+  '/provisioning': typeof ProvisioningRoute
+  '/unauthorized': typeof UnauthorizedRoute
+  '/admin': typeof AdminIndexRoute
+  '/directory': typeof DirectoryIndexRoute
+  '/admin/active-directory/groups': typeof AdminActiveDirectoryGroupsRoute
+  '/admin/active-directory/organizational-units': typeof AdminActiveDirectoryOrganizationalUnitsRoute
+  '/admin/active-directory/users': typeof AdminActiveDirectoryUsersRoute
   '/admin/employees/$employeeGuid': typeof AdminEmployeesEmployeeGuidRoute
   '/admin/employees/new': typeof AdminEmployeesNewRoute
-  '/admin/employees': typeof AdminEmployeesIndexRoute
+  '/admin/active-directory': typeof AdminActiveDirectoryIndexRoute
+  '/admin/logs': typeof AdminLogsIndexRoute
+  '/admin/timeoff': typeof AdminTimeoffIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/employees': typeof EmployeesRoute
-  '/onboarding': typeof OnboardingRoute
-  '/admin/logs': typeof AdminLogsRoute
-  '/admin/provisioning': typeof AdminProvisioningRoute
-  '/admin/timeoff': typeof AdminTimeoffRoute
+  '/provisioning': typeof ProvisioningRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/admin': typeof AdminIndexRoute
+  '/directory': typeof DirectoryIndexRoute
+  '/admin/active-directory/groups': typeof AdminActiveDirectoryGroupsRoute
+  '/admin/active-directory/organizational-units': typeof AdminActiveDirectoryOrganizationalUnitsRoute
+  '/admin/active-directory/users': typeof AdminActiveDirectoryUsersRoute
   '/admin/employees/$employeeGuid': typeof AdminEmployeesEmployeeGuidRoute
   '/admin/employees/new': typeof AdminEmployeesNewRoute
-  '/admin/employees': typeof AdminEmployeesIndexRoute
+  '/admin/active-directory': typeof AdminActiveDirectoryIndexRoute
+  '/admin/logs': typeof AdminLogsIndexRoute
+  '/admin/timeoff': typeof AdminTimeoffIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/employees': typeof EmployeesRoute
-  '/onboarding': typeof OnboardingRoute
-  '/admin/logs': typeof AdminLogsRoute
-  '/admin/provisioning': typeof AdminProvisioningRoute
-  '/admin/timeoff': typeof AdminTimeoffRoute
+  '/provisioning': typeof ProvisioningRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/admin/': typeof AdminIndexRoute
+  '/directory/': typeof DirectoryIndexRoute
+  '/admin/active-directory/groups': typeof AdminActiveDirectoryGroupsRoute
+  '/admin/active-directory/organizational-units': typeof AdminActiveDirectoryOrganizationalUnitsRoute
+  '/admin/active-directory/users': typeof AdminActiveDirectoryUsersRoute
   '/admin/employees/$employeeGuid': typeof AdminEmployeesEmployeeGuidRoute
   '/admin/employees/new': typeof AdminEmployeesNewRoute
-  '/admin/employees/': typeof AdminEmployeesIndexRoute
+  '/admin/active-directory/': typeof AdminActiveDirectoryIndexRoute
+  '/admin/logs/': typeof AdminLogsIndexRoute
+  '/admin/timeoff/': typeof AdminTimeoffIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/provisioning'
+    | '/unauthorized'
     | '/admin'
-    | '/employees'
-    | '/onboarding'
-    | '/admin/logs'
-    | '/admin/provisioning'
-    | '/admin/timeoff'
-    | '/admin/'
+    | '/directory'
+    | '/admin/active-directory/groups'
+    | '/admin/active-directory/organizational-units'
+    | '/admin/active-directory/users'
     | '/admin/employees/$employeeGuid'
     | '/admin/employees/new'
-    | '/admin/employees'
+    | '/admin/active-directory'
+    | '/admin/logs'
+    | '/admin/timeoff'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/employees'
-    | '/onboarding'
-    | '/admin/logs'
-    | '/admin/provisioning'
-    | '/admin/timeoff'
+    | '/provisioning'
+    | '/unauthorized'
     | '/admin'
+    | '/directory'
+    | '/admin/active-directory/groups'
+    | '/admin/active-directory/organizational-units'
+    | '/admin/active-directory/users'
     | '/admin/employees/$employeeGuid'
     | '/admin/employees/new'
-    | '/admin/employees'
+    | '/admin/active-directory'
+    | '/admin/logs'
+    | '/admin/timeoff'
   id:
     | '__root__'
     | '/'
-    | '/admin'
-    | '/employees'
-    | '/onboarding'
-    | '/admin/logs'
-    | '/admin/provisioning'
-    | '/admin/timeoff'
+    | '/provisioning'
+    | '/unauthorized'
     | '/admin/'
+    | '/directory/'
+    | '/admin/active-directory/groups'
+    | '/admin/active-directory/organizational-units'
+    | '/admin/active-directory/users'
     | '/admin/employees/$employeeGuid'
     | '/admin/employees/new'
-    | '/admin/employees/'
+    | '/admin/active-directory/'
+    | '/admin/logs/'
+    | '/admin/timeoff/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  EmployeesRoute: typeof EmployeesRoute
-  OnboardingRoute: typeof OnboardingRoute
+  ProvisioningRoute: typeof ProvisioningRoute
+  UnauthorizedRoute: typeof UnauthorizedRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  DirectoryIndexRoute: typeof DirectoryIndexRoute
+  AdminActiveDirectoryGroupsRoute: typeof AdminActiveDirectoryGroupsRoute
+  AdminActiveDirectoryOrganizationalUnitsRoute: typeof AdminActiveDirectoryOrganizationalUnitsRoute
+  AdminActiveDirectoryUsersRoute: typeof AdminActiveDirectoryUsersRoute
+  AdminEmployeesEmployeeGuidRoute: typeof AdminEmployeesEmployeeGuidRoute
+  AdminEmployeesNewRoute: typeof AdminEmployeesNewRoute
+  AdminActiveDirectoryIndexRoute: typeof AdminActiveDirectoryIndexRoute
+  AdminLogsIndexRoute: typeof AdminLogsIndexRoute
+  AdminTimeoffIndexRoute: typeof AdminTimeoffIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRouteRoute: AdminRouteRouteWithChildren,
-  EmployeesRoute: EmployeesRoute,
-  OnboardingRoute: OnboardingRoute,
+  ProvisioningRoute: ProvisioningRoute,
+  UnauthorizedRoute: UnauthorizedRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  DirectoryIndexRoute: DirectoryIndexRoute,
+  AdminActiveDirectoryGroupsRoute: AdminActiveDirectoryGroupsRoute,
+  AdminActiveDirectoryOrganizationalUnitsRoute:
+    AdminActiveDirectoryOrganizationalUnitsRoute,
+  AdminActiveDirectoryUsersRoute: AdminActiveDirectoryUsersRoute,
+  AdminEmployeesEmployeeGuidRoute: AdminEmployeesEmployeeGuidRoute,
+  AdminEmployeesNewRoute: AdminEmployeesNewRoute,
+  AdminActiveDirectoryIndexRoute: AdminActiveDirectoryIndexRoute,
+  AdminLogsIndexRoute: AdminLogsIndexRoute,
+  AdminTimeoffIndexRoute: AdminTimeoffIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -312,59 +352,58 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/admin",
-        "/employees",
-        "/onboarding"
+        "/provisioning",
+        "/unauthorized",
+        "/admin/",
+        "/directory/",
+        "/admin/active-directory/groups",
+        "/admin/active-directory/organizational-units",
+        "/admin/active-directory/users",
+        "/admin/employees/$employeeGuid",
+        "/admin/employees/new",
+        "/admin/active-directory/",
+        "/admin/logs/",
+        "/admin/timeoff/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/admin": {
-      "filePath": "admin/route.tsx",
-      "children": [
-        "/admin/logs",
-        "/admin/provisioning",
-        "/admin/timeoff",
-        "/admin/",
-        "/admin/employees/$employeeGuid",
-        "/admin/employees/new",
-        "/admin/employees/"
-      ]
+    "/provisioning": {
+      "filePath": "provisioning.tsx"
     },
-    "/employees": {
-      "filePath": "employees.tsx"
-    },
-    "/onboarding": {
-      "filePath": "onboarding.tsx"
-    },
-    "/admin/logs": {
-      "filePath": "admin/logs.tsx",
-      "parent": "/admin"
-    },
-    "/admin/provisioning": {
-      "filePath": "admin/provisioning.tsx",
-      "parent": "/admin"
-    },
-    "/admin/timeoff": {
-      "filePath": "admin/timeoff.tsx",
-      "parent": "/admin"
+    "/unauthorized": {
+      "filePath": "unauthorized.tsx"
     },
     "/admin/": {
-      "filePath": "admin/index.tsx",
-      "parent": "/admin"
+      "filePath": "admin/index.tsx"
+    },
+    "/directory/": {
+      "filePath": "directory/index.tsx"
+    },
+    "/admin/active-directory/groups": {
+      "filePath": "admin/active-directory/groups.tsx"
+    },
+    "/admin/active-directory/organizational-units": {
+      "filePath": "admin/active-directory/organizational-units.tsx"
+    },
+    "/admin/active-directory/users": {
+      "filePath": "admin/active-directory/users.tsx"
     },
     "/admin/employees/$employeeGuid": {
-      "filePath": "admin/employees/$employeeGuid.tsx",
-      "parent": "/admin"
+      "filePath": "admin/employees/$employeeGuid.tsx"
     },
     "/admin/employees/new": {
-      "filePath": "admin/employees/new.tsx",
-      "parent": "/admin"
+      "filePath": "admin/employees/new.tsx"
     },
-    "/admin/employees/": {
-      "filePath": "admin/employees/index.tsx",
-      "parent": "/admin"
+    "/admin/active-directory/": {
+      "filePath": "admin/active-directory/index.tsx"
+    },
+    "/admin/logs/": {
+      "filePath": "admin/logs/index.tsx"
+    },
+    "/admin/timeoff/": {
+      "filePath": "admin/timeoff/index.tsx"
     }
   }
 }

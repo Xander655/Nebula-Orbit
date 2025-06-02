@@ -1,45 +1,98 @@
-// components/NavBar.tsx
-import { Link, useRouterState } from '@tanstack/react-router'
-import SignOutButton from '../auth/SignOutButton'
-import clsx from 'clsx' // optional, but makes conditional classes cleaner
-import UserInfo from './UserInfo'
-
-const navItems = [
-    { to: '/', label: 'Home' },
-    { to: '/employees', label: 'Employees' },
-    { to: '/admin', label: 'Admin', roles: ['Admin', 'ITAdmin'] },
-    { to: '/onboarding', label: 'Onboarding', roles: ['Admin', 'HR', 'ITAdmin'] },
-    { to: '/logs', label: 'Logs', roles: ['Admin', 'ITAdmin'] },
-    { to: '/settings', label: 'Settings', roles: ['Admin'] },
-]
+import { Link } from '@tanstack/react-router'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu'
+import { Button } from '@/components/ui/button'
+import  {LogoutButton}  from '@/components/LogoutButton'
+import { useMsal } from '@azure/msal-react'
+import { cn } from '@/lib/utils'
+import * as React from 'react'
 
 export default function NavBar() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const { accounts } = useMsal()
+  const user = accounts[0]
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <nav className="space-x-4">
-          {navItems.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              className={clsx(
-                'text-sm font-medium px-2 pb-1 border-b-2 transition-colors',
-                pathname === to
-                  ? 'text-blue-600 border-blue-600'
-                  : 'text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-300'
-              )}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex flex-col items-end md:items-center md:flex-row gap-2 md:gap-4">
-          <UserInfo />
-          <SignOutButton />
-        </div>
+    <header className="w-full border-b bg-background p-4 shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* LEFT SIDE — Main Nav */}
+        <NavigationMenu>
+          <NavigationMenuList className="flex gap-4">
+            <NavigationMenuItem>
+              <Link to="/" className={navigationMenuTriggerStyle()}>
+                Home
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link to="/provisioning" className={navigationMenuTriggerStyle()}>
+                Provisioning
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Active Directory</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:grid-cols-1">
+                  <ListItem href="/admin/active-directory" title="Overview">
+                    Summary page for AD search and quick links.
+                  </ListItem>
+                  <ListItem href="/admin/active-directory/users" title="Users">
+                    Manage individual Active Directory users.
+                  </ListItem>
+                  <ListItem href="/admin/active-directory/groups" title="Groups">
+                    View and manage AD security/distribution groups.
+                  </ListItem>
+                  <ListItem
+                    href="/admin/active-directory/organizational-units"
+                    title="Organizational Units"
+                  >
+                    Manage OU structure and assignments.
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        {/* RIGHT SIDE — User Info + Logout */}
+        {user && (
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground">{user.name}</span>
+            <LogoutButton />
+          </div>
+        )}
       </div>
     </header>
   )
 }
+
+const ListItem = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'> & { title: string }
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = 'ListItem'

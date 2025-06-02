@@ -1,11 +1,20 @@
-// main.tsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import MsalProviderWrapper from './auth/MsalProviderWrapper'
 import './index.css'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { RouterProvider } from "@tanstack/react-router"
+import { MsalProvider } from "@azure/msal-react"
+import { msalInstance } from './auth/msalInstance'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { router } from "./router"
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const queryClient = new QueryClient()
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MsalProviderWrapper />
-  </React.StrictMode>,
+    <MsalProvider instance={msalInstance}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </MsalProvider>
+  </React.StrictMode>
 )

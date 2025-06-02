@@ -6,8 +6,13 @@
   ],
 
   "compilerOptions": {
+    "types": ["node"],
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "es2022"],
     "module": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+    }
   }
 }

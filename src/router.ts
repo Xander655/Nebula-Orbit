@@ -1,14 +1,16 @@
 // router.ts
-import { createRouter } from '@tanstack/react-router'
-import type { RouterContext } from './types/router-context'
-import { routeTree } from './routeTree.gen'
+import { createRouter } from "@tanstack/react-router"
+import { routeTree } from "./routeTree.gen"
+import type { RouterContext } from "./types/router-context"
 
 export const router = createRouter({
   routeTree,
-  context: undefined!, // will be injected in <RouterProvider />
+  context: {
+    auth: undefined!
+  },
 })
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router
     context: RouterContext
