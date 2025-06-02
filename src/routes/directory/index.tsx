@@ -2,7 +2,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getAccessToken } from '@/auth/getAccessToken'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { SearchInput } from '@/components/SearchInput'
 
 export const Route = createFileRoute('/directory/')({
