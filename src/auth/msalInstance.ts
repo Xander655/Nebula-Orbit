@@ -2,6 +2,7 @@ import { PublicClientApplication, type AuthenticationResult } from '@azure/msal-
 
 const ENTRA_CLIENT_ID = import.meta.env.VITE_ENTRA_CLIENT_ID
 const ENTRA_AUTHORITY = import.meta.env.VITE_ENTRA_AUTHORITY
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI
 
 console.log("All env vars:", import.meta.env);
 
@@ -11,7 +12,7 @@ export const msalInstance = new PublicClientApplication({
   auth: {
     clientId: ENTRA_CLIENT_ID,
     authority: ENTRA_AUTHORITY,
-    redirectUri: window.location.origin + import.meta.env.BASE_URL,
+    redirectUri: REDIRECT_URI,
   },
   cache: {
     cacheLocation: 'localStorage',
