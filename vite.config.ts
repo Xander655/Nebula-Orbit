@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
+  base: '/Nebula-Orbit/',
   plugins: [
     TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
     react(),
