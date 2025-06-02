@@ -25,8 +25,10 @@ msalInstance.addEventCallback((event) => {
 
     if ((payload as AuthenticationResult)?.account) {
       const account = (payload as AuthenticationResult).account
-      const idToken = account.idTokenClaims as any
-      const roles = idToken?.roles ?? []
+      const idTokenClaims = account.idTokenClaims as Record<string, unknown>
+      const roles = Array.isArray(idTokenClaims?.roles)
+        ? (idTokenClaims.roles as string[])
+        : []
 
       if (!roles.includes('nebula_admin')) {
         console.warn('Unauthorized — redirecting to /unauthorized')

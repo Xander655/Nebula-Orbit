@@ -4,6 +4,7 @@ import { fetchAdOUs } from '@/api/activeDirectory'
 import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
+import type { OrganizationalUnit } from '@/types/organizationalUnit'
 
 export const Route = createFileRoute('/admin/active-directory/organizational-units')({
   component: OUsPage,
@@ -38,7 +39,7 @@ function OUsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {ous.map((ou: any, idx: number) => (
+                {ous.map((ou: OrganizationalUnit, idx: number) => (
                   <TableRow key={idx}>
                     <TableCell>{ou.Name}</TableCell>
                     <TableCell>{ou.DistinguishedName}</TableCell>

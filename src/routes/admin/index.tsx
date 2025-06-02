@@ -1,4 +1,5 @@
 // routes/admin/index.tsx
+import type { RouterContext } from '@/types/router-context'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useRouterState } from '@tanstack/react-router'
 
@@ -8,15 +9,18 @@ export const Route = createFileRoute('/admin/')({
 
 function AdminDashboard() {
   const auth = useRouterState({
-    select: (s) => s.matches[s.matches.length - 1]?.context.auth,
+    select: (s) =>
+      (s.matches[s.matches.length - 1]?.context as RouterContext | undefined)
+        ?.auth,
   })
 
-  const roles = auth?.user?.roles ?? []
+  const name = auth?.accounts[0]?.name;
+  const roles = auth?.accounts[0]?.idTokenClaims?.roles ?? [];
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2">
-        Welcome, {auth?.user?.name ?? 'Admin'} 👋
+        Welcome, {name ?? 'Admin'} 👋
       </h1>
       <p className="text-gray-600 mb-4">This is your internal control panel.</p>
 

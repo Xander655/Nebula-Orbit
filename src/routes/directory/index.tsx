@@ -1,9 +1,9 @@
 // routes/employees.tsx
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { useApiToken } from '../../auth/useApiToken'
-import { useRef, useState } from 'react'
-import { SearchInput } from '../../components/SearchInput'
+import { getAccessToken } from '@/auth/getAccessToken'
+import { useState } from 'react'
+import { SearchInput } from '@/components/SearchInput'
 
 export const Route = createFileRoute('/directory/')({
   component: DirectoryPage,
@@ -16,7 +16,6 @@ type Employee = {
 }
 
 function DirectoryPage() {
-  const { getAccessToken } = useApiToken()
 
   const [page, setPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
