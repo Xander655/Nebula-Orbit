@@ -7,8 +7,8 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-export default defineConfig({
-  base: '/Nebula-Orbit/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'development' ? '/' : '/Nebula-Orbit/',
   plugins: [
     TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
     react(),
@@ -18,4 +18,4 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-})
+}))

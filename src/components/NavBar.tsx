@@ -28,33 +28,6 @@ export default function NavBar() {
                 Home
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/provisioning" className={navigationMenuTriggerStyle()}>
-                Provisioning
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Active Directory</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:grid-cols-1">
-                  <ListItem href="/admin/active-directory" title="Overview">
-                    Summary page for AD search and quick links.
-                  </ListItem>
-                  <ListItem href="/admin/active-directory/users" title="Users">
-                    Manage individual Active Directory users.
-                  </ListItem>
-                  <ListItem href="/admin/active-directory/groups" title="Groups">
-                    View and manage AD security/distribution groups.
-                  </ListItem>
-                  <ListItem
-                    href="/admin/active-directory/organizational-units"
-                    title="Organizational Units"
-                  >
-                    Manage OU structure and assignments.
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 

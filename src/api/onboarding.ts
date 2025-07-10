@@ -1,5 +1,5 @@
 import { getAccessToken } from '@/auth/getAccessToken'
-import { type FormData } from '@/routes/provisioning'
+import { type FormData } from '@/routes'
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function submitOnboardingRequest(data: FormData): Promise<void> {
