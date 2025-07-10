@@ -1,1 +1,0 @@
-import{j as e}from"./index-CKCXNYJy.js";const s=()=>e.jsxs("div",{className:"h-screen flex flex-col items-center justify-center text-center",children:[e.jsx("h1",{className:"text-2xl font-bold text-red-600",children:"Access Denied"}),e.jsx("p",{className:"mt-2 text-gray-700",children:"You do not have the required role to access this application."})]});export{s as component};
